@@ -1,0 +1,50 @@
+
+.sf_error_msg{
+	color:#F00;
+	/*font-weight:bold;*/
+}
+input.highlight_error,
+select.highlight_error,
+div.highlight_error
+{ border:2px solid #F00;}
+
+/*----------------------------------*/
+.floatymessage{
+	width: 100%;
+	height: auto;
+	display: block;
+	position: fixed;
+	top: 25%;
+	opacity: 1;	
+	z-index: 8019;
+}
+.floatymessage_content{
+	margin:0 auto;
+	width:200px;
+	padding:30px;
+	background:#FFF;
+}
+.floatymessagebg{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	opacity: 0.9;
+	z-index: 8010;
+	background: #000;
+}
+.alertbox_close{
+	clear:both;
+	display:inline-block;
+	height:20px;
+	text-decoration:none;
+	background:#333;
+	color:#FFF;
+	padding:2px 5px;
+}
+.alertbox_close:hover{
+	background:#999;
+	color:#333;
+}

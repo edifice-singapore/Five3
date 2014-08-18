@@ -52,7 +52,7 @@
     </tbody>
     </table>
     <div style="border:1px solid black; margin-top:-21px">
-    <div> terms and agreement</div>
+    
       <table style="width:300px;margin-left:830px;border:none">
         <?php //var_dump($totals); 
         $arrOrder = array(0,2,1,3);
@@ -78,7 +78,69 @@
   
 </div>
 <br><br>
+<table>
+<tr>
+<td >
 <div class="payment"  style="width:550px"><?php echo $payment; ?></div>
+</td><td valign="top">
+<div style="width: 550px;margin-left:90px">
+            
+            <table cellpadding="0" cellspacing="0" style="">
+                <tr>
+                    
+                    <td width="47%">
+                        <span style="color: #000; font-weight:600;font-size:12pt">MADE TO MEASURE APPOINTMENT</span><br />
+                        <br />
+                         <span style="font-style:italic;color:#636363;font-size:11pt">*Select a date and time to book an appointment to get you measured up.<br> <span style="color: #000; font-weight: 600">All made to measure is subjected to a SGD $10.00 service fee.</span></span><br />
+                        <br />
+                        <input type="text" name="datePicked" class="date greytextfield" id="datePicked" placeholder="DD.MM.YY" style="height:20px"/>
+                        <img  style="margin-top:1px;margin-left:2px;position:absolute" src="http://localhost/FIV3/image/data/nImage/ico_cal.png" />
+                        <div class="clear"></div><br />
+                        <select name="hour" id="hour" style="width:70px; float: left; margin-right:10px;">
+                              <option value="hour">HH</option>
+                              <option value="hour01">01</option>
+                              <option value="hour02">02</option>
+                              <option value="hour03">03</option>
+                              <option value="hour04">04</option>
+                              <option value="hour05">05</option>
+                              <option value="hour06">06</option>
+                              <option value="hour07">07</option>
+                              <option value="hour08">08</option>
+                              <option value="hour09">09</option>
+                              <option value="hour10">10</option>
+                              <option value="hour11">11</option>
+                              <option value="hour12">12</option>
+                        </select>
+                        <select name="minute" id="minute" style="width:70px; float: left; margin-right:10px;">
+                              <option value="min">MIN</option>
+                              <option value="min00">00</option>
+                              <option value="min15">15</option>
+                              <option value="min30">30</option>
+                              <option value="min45">45</option>
+                        </select>
+                        <select name="ampm" id="ampm" style="width:70px; float: left; margin-right:10px;">
+                              <option value="am">AM</option>
+                              <option value="pm">PM</option>
+                        </select><br /><br />
+                        <div class="clear"></div><br />
+                        <span style="color: #000; font-weight:600;font-size:10pt">Our Operating Hours</span><br />
+                        <span style="color:#636363;font-size:10pt">11am - 6pm, Monday to Saturday.<br />
+                        (Closed on Sunday and public holiday)</span>
+                    </td>
+                </tr>
+            </table>
+            
+        </div>
+      </td>
+    </tr>
+  </table>
+<script type="text/javascript">
+  $(function(){
+    $(".payment .content").css({"border":"none","font-family":"calibri","font-size":"12pt","color":"#666666"});
+$(".payment h2").css({"margin-left":"10px","text-transform":"uppercase","color": "#000", "font-weight":"600","font-size":"12pt"});
+  });
+
+</script>
 <?php } else { ?>
 <script type="text/javascript"><!--
 location = '<?php echo $redirect; ?>';

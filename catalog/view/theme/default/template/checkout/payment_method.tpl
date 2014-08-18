@@ -32,8 +32,8 @@
 </table>
 <br />
 <?php } ?>
-<b style="display:none"><?php echo $text_comments; ?></b>
-<textarea name="comment" rows="8" style="width: 98%;display:none"><?php echo $comment; ?></textarea>
+<b ><?php echo $text_comments; ?></b>
+<textarea name="comment" rows="8" style="width: 98%;" id="paymentTextArea"><?php echo $comment; ?></textarea>
 <br />
 <br />
 <?php if ($text_agree) { ?>

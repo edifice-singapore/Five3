@@ -46,7 +46,7 @@
 		margin: -1px 8px 0 0;
 	}
   	</style>
-  <div style="width:1198px;height:50px;border:1px solid black">
+  <div style="width:1198px;height:50px;border:1px solid none;border-bottom:10px solid #E0E0E0">
   	
   	<span class="checkHeader" id="firstLoad"><div class="checkout_step_no">1</div><?php $ex1 = explode(":",$text_checkout_option); echo $ex1[1]; ?></span>
   	<?php if (!$logged) { ?>
@@ -104,7 +104,7 @@
     </div>
     <div id="confirm">
       <div  style="display:none" class="checkout-heading"><?php echo $text_checkout_confirm; ?></div>
-      <div class="checkout-content"></div>
+      <div class="checkout-content" style="height:700px"></div>
        <div class="backBtn payment-method stackBtn fifthLoad" style="display:none">BACK</div><div class="nextBtn payment-method stackBtn" style="display:none">CONFIRM ORDER</div>
     </div>
     <br><br>
@@ -137,7 +137,7 @@
   .commonBtn{
   	float:left;
   	cursor: pointer;
-  	
+
   }
 
   </style>
@@ -152,6 +152,7 @@ $('#checkout .checkout-content input[name=\'account\']').live('change', function
 
 $(".backBtn").click(function(){
   var parClass = $(this).attr('class').split(' ');
+
   $("#"+parClass[1]).find('.checkout-content').slideDown('slow');
   $("#"+parClass[1]).find('.'+parClass[2]).slideDown('slow');
   $(this).parent().find('.checkout-content').slideUp('slow');
@@ -168,6 +169,36 @@ $(".backBtn").click(function(){
 });
 
 $(".nextBtn").click(function(){
+	var parClass = $(this).attr('class').split(' ');
+	if(parClass[1]=="payment-method"){
+	  	if($("#datePicked").val()=="" || $("#hour").val().split('hour')[1]=="" || $("#minute").val().split('min')[1]=="" || $("#ampm").val()==""){
+		    alert("Please input a valid 'MADE TO MEASURE APPOINTMENT'.");
+		    return;
+  		}
+  
+  		
+	  var txt = "MADE TO MEASURE APPOINTMENT \n\n";
+	  txt = txt+" DATE : "+$("#datePicked").val()+" \n\n";
+	  txt = txt+" TIME : "+$("#hour").val().split('hour')[1]+" : "+$("#minute").val().split('min')[1]+" : "+$("#ampm").val()+" \n\n";
+
+	  $("#paymentTextArea").val(txt);
+
+	  $.ajax({
+		url: 'index.php?route=checkout/shipping_method/validate',
+		type: 'post',
+		data: $('#shipping-method input[type=\'radio\']:checked, #paymentTextArea'),
+		dataType: 'json',
+		complete: function() {
+			$('#button-shipping-method').attr('disabled', false);
+			$('.wait').remove();
+			alert("done"+ $("#paymentTextArea").val());
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});	
+  	}
+
   $(this).parent().find(".button").click();
 });
 
@@ -244,9 +275,9 @@ $(document).ready(function() {
 				$("#payment-method .stackBtn").css("display","none");
 				$("#confirm .stackBtn").css("display","none");
 
-				//$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+				//$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
-				$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+				$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 				$("#newsletter").hide(); $("#newsletter").next("label").hide();
 				$("#firstLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 				$("#secondLoad").css("color","black").find(".checkout_step_no").css("background-color","black");
@@ -291,8 +322,8 @@ $('#button-account').live('click', function() {
 
 			$("#newsletter").hide(); $("#newsletter").next("label").hide();
 			//alert('asdas');
-			//$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
-			$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+			//$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
+			$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 			$("#checkout .stackBtn").css("display","none");
 			$("#payment-address .stackBtn").css("display","block");
@@ -337,7 +368,7 @@ $('#button-login').live('click', function() {
 			$("#payment-method .stackBtn").css("display","none");
 			$("#confirm .stackBtn").css("display","none");
 
-			$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+			$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 			$("#newsletter").hide(); $("#newsletter").next("label").hide();
 
 			$("#secondLoad").css("color","black").find(".checkout_step_no").css("background-color","black");
@@ -362,7 +393,7 @@ $('#button-login').live('click', function() {
 				$("#payment-method .stackBtn").css("display","none");
 				$("#confirm .stackBtn").css("display","none");
 
-				$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+				$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 				$("#firstLoad").css("color","black").find(".checkout_step_no").css("background-color","black");
 				$("#secondLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
@@ -501,7 +532,7 @@ $('#button-register').live('click', function() {
 							$('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');									
 							$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 							$("#newsletter").hide(); $("#newsletter").next("label").hide();
 
 							$.ajax({
@@ -526,7 +557,7 @@ $('#button-register').live('click', function() {
 
 									$('#shipping-address .checkout-content').html(html);
 
-									$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+									$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 									$("#newsletter").hide(); $("#newsletter").next("label").hide();
 								},
 								error: function(xhr, ajaxOptions, thrownError) {
@@ -574,7 +605,7 @@ $('#button-register').live('click', function() {
 
 							$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 							$("#newsletter").hide(); $("#newsletter").next("label").hide();
 						},
@@ -617,7 +648,7 @@ $('#button-register').live('click', function() {
 						
 						$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 						$("#newsletter").hide(); $("#newsletter").next("label").hide();
 					},
@@ -651,7 +682,7 @@ $('#button-register').live('click', function() {
 						$('#payment-address .checkout-content').html(html);
 							
 						$('#payment-address .checkout-heading span').html('<?php echo $text_checkout_payment_address; ?>');
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 						$("#newsletter").hide(); $("#newsletter").next("label").hide();
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
@@ -773,7 +804,7 @@ $('#button-payment-address').live('click', function() {
 						$('#payment-method .checkout-heading a').remove();
 						
 						$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -810,7 +841,7 @@ $('#button-payment-address').live('click', function() {
 						$('#payment-method .checkout-heading a').remove();
 													
 						$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -839,7 +870,7 @@ $('#button-payment-address').live('click', function() {
 						$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
 						$('#payment-address .checkout-content').html(html);
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -954,7 +985,7 @@ $('#button-shipping-address').live('click', function() {
 						$('#payment-method .checkout-heading a').remove();
 						
 						$('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');		
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});		
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});		
 						 $("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());			
 						
 						$.ajax({
@@ -977,7 +1008,7 @@ $('#button-shipping-address').live('click', function() {
 						$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
 								$('#shipping-address .checkout-content').html(html);
-								$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+								$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 								 $("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());
 							},
@@ -1012,7 +1043,7 @@ $('#button-shipping-address').live('click', function() {
 						$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
 						$('#payment-address .checkout-content').html(html);
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 
 						 $("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());
 					},
@@ -1144,7 +1175,7 @@ $('#button-guest').live('click', function() {
 							$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 							$('#shipping-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});								
+							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});								
 							
 							$.ajax({
 								url: 'index.php?route=checkout/guest_shipping',
@@ -1167,7 +1198,7 @@ $('#button-guest').live('click', function() {
 						$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
 									$('#shipping-address .checkout-content').html(html);
-									$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+									$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 								},
 								error: function(xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1211,7 +1242,7 @@ $('#button-guest').live('click', function() {
 							$('#payment-method .checkout-heading a').remove();
 							
 							$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
-							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+							$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1251,7 +1282,7 @@ $('#button-guest').live('click', function() {
 														
 						$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
 
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1413,7 +1444,7 @@ $('#button-shipping-method').live('click', function() {
 						
 						$('#shipping-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1491,7 +1522,14 @@ $('#button-payment-method').live('click', function() {
 						
 						$('#payment-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 
-						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"13px"});
+						$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
+
+						if ($.browser.msie && $.browser.version == 6) {
+    $('.date, .datetime, .time').bgIframe();
+  }
+
+  $('#datePicked').datepicker({dateFormat: 'dd MM yy'});
+
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1545,3 +1583,8 @@ function quickConfirm(module){
 		display:none;
 	}
 </style>
+
+<script type="text/javascript" src="catalog/view/javascript/jquery/ui/jquery-ui-timepicker-addon.js"></script> 
+<script type="text/javascript"><!--
+
+//--></script> 

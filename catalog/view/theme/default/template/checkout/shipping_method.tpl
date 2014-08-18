@@ -28,7 +28,7 @@ Refer to out Delivery <a alt="Terms & Conditions" href="http://localhost/FIV3/in
   </tr>
   <tr>
       <td></td>
-      <td colspan="2">
+      <td colspan="2"  style="height:70px">
         <table id="setAddTable" style="width:700px">
           <tr>
             <td id="setInAddress" style="background-color:#d5d5d5;border-top:1px solid #b5b5b5;border-left:1px solid #b5b5b5;border-right:1px solid #b5b5b5;"></td>

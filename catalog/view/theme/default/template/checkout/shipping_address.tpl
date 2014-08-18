@@ -3,7 +3,7 @@
 <input type="radio" name="shipping_address" value="existing" id="shipping-address-existing" checked="checked" />
 <label for="shipping-address-existing" style="font-family:calibri;color:#555555;font-weight:bold;font-size:11pt"><?php echo $text_address_existing; ?></label>
 <div id="shipping-existing">
-  <select name="address_id" style="width: 100%; margin-bottom: 15px;" size="5">
+  <select name="address_id" style="width: 90%; margin-bottom: 15px;margin-left:25px;margin-top:15px;font-size:12pt;font-family:calibri" size="5">
     <?php foreach ($addresses as $address) { ?>
     <?php if ($address['address_id'] == $address_id) { ?>
     <option value="<?php echo $address['address_id']; ?>" selected="selected"><?php echo $address['firstname']; ?> <?php echo $address['lastname']; ?>, <?php echo $address['address_1']; ?>, <?php echo $address['city']; ?>, <?php echo $address['zone']; ?>, <?php echo $address['country']; ?></option>
