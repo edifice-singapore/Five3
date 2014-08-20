@@ -50,7 +50,7 @@
     </style>
 
       <?php if ($thumb) { ?>
-      <div class="image" id="zoomidthis">
+      <div class="image" id="zoomidthis" style="border:none">
         <span class='zoom' id='ex1'>
           <img src="<?php echo $popup; ?>" style="width:500px;height:500px" title="<?php echo $heading_title; ?>" alt="<?php echo $heading_title; ?>" id="image" />
         </span>
@@ -129,7 +129,8 @@
             
             <style type="text/css">
               .mainDivImgButton{
-                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb
+                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
+                cursor: pointer;
               }
             </style>
 
@@ -218,20 +219,20 @@
         
         <?php } ?>
         <?php if ($option['type'] == 'radio') { ?>
-        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead">
+        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead radioOption">
           <div id="" class="clickElement" style="border-bottom:1px solid black">
               <?php if ($option['required']) { ?>
               <span class="required">*</span>
               <?php } ?>
-              <b><?php echo $option['name']; ?>:</b>
+              <b><span id="nameOption"><?php echo $option['name']; ?></span>:</b>
               <b style="float:right;color:gray;" class="edit"> EDIT </b>
               <br />
           </div>
           <div style="width:640px; display:none" class="displ hidDivoption-<?php echo $option['product_option_id']; ?>">
               <?php foreach ($option['option_value'] as $option_value) { ?>
               <input type="radio" name="option[<?php echo $option['product_option_id']; ?>]" value="<?php echo $option_value['product_option_value_id']; ?>" id="option-value-<?php echo $option_value['product_option_value_id']; ?>" />
-              <label for="option-value-<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?>
-                <?php if ($option_value['price']) { ?>
+              <label for="option-value-<?php echo $option_value['product_option_value_id']; ?>"  style="font-family:calibri;font-size:12pt;font-weight:600"><?php echo $option_value['name']; ?>
+                <?php if (false){ //($option_value['price']) { ?>
                 (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
                 <?php } ?>
               </label>
@@ -245,19 +246,19 @@
         <br />
         <?php } ?>
         <?php if ($option['type'] == 'checkbox') { ?>
-        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead">
+        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead checkOption">
           <div id="" class="clickElement" style="border-bottom:1px solid black">
               <?php if ($option['required']) { ?>
               <span class="required">*</span>
               <?php } ?>
-              <b><?php echo $option['name']; ?>:</b>
+              <b><span id="nameOption"><?php echo $option['name']; ?></span>:</b>
               <b style="float:right;color:gray;" class="edit"> EDIT </b>
               <br />
           </div>
           <div style="width:640px; display:none" class="displ hidDivoption-<?php echo $option['product_option_id']; ?>">
             <?php foreach ($option['option_value'] as $option_value) { ?>
               <input type="checkbox" name="option[<?php echo $option['product_option_id']; ?>][]" value="<?php echo $option_value['product_option_value_id']; ?>" id="option-value-<?php echo $option_value['product_option_value_id']; ?>" />
-            <label for="option-value-<?php echo $option_value['product_option_value_id']; ?>"><?php echo $option_value['name']; ?>
+            <label for="option-value-<?php echo $option_value['product_option_value_id']; ?>"  style="font-family:calibri;font-size:12pt;font-weight:600"><?php echo $option_value['name']; ?>
               <?php if ($option_value['price']) { ?>
                 (<?php echo $option_value['price_prefix']; ?><?php echo $option_value['price']; ?>)
               <?php } ?>
@@ -272,12 +273,12 @@
         <br />
         <?php } ?>
         <?php if ($option['type'] == 'image') { ?>
-        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead">
+        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead imgOption">
           <div id="" class="clickElement" style="border-bottom:1px solid black">
             <?php if ($option['required']) { ?>
             <span class="required">*</span>
             <?php } ?>
-            <b><?php echo $option['name']; ?>:</b>
+            <b><span id="nameOption"><?php echo $option['name']; ?></span>:</b>
             <b style="float:right;color:gray;" class="edit"> EDIT </b>
             <br />
           </div>
@@ -354,12 +355,12 @@
         <br />
         <?php } ?>
         <?php if ($option['type'] == 'text') { ?>
-        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead">
+        <div id="option-<?php echo $option['product_option_id']; ?>" class="option clickElementHead textOption">
           <div id="" class="clickElement" style="border-bottom:1px solid black">
             <?php if ($option['required']) { ?>
             <span class="required">*</span>
             <?php } ?>
-            <b><?php echo $option['name']; ?>:</b>
+            <b><span id="nameOption"><?php echo $option['name']; ?></span>:</b>
             <b style="float:right;color:gray;" class="edit"> EDIT </b>
             <br />
           </div>
@@ -823,33 +824,71 @@ $(document).ready(function() {
                 }
               }
 
+              var textIdToPass = "";
+              $(".textOption").each(function(){
+                var optionId = $(this).attr('id');
+                $(this).find('#nameOption').each(function(){
+                  if($(this).text()=='INITIALS'){
+                    textIdToPass = optionId;
+                  }
+                });
+              });
 
-              $("#option-242").removeClass("clickElementHead").css("display","none");
-              $("#option-243").removeClass("clickElementHead").css("display","none");
+              var checkIdToPass = "";
+              $(".checkOption").each(function(){
+                var optionId = $(this).attr('id');
+                $(this).find('#nameOption').each(function(){
+                  if($(this).text()=='WISH TO INCLUDE INITIAL?'){
+                    checkIdToPass = optionId;
+                  }
+                });
+              });
 
-              $("#option-240.clickElementHead").children(".displ").append("<div style='color:gray;float:right;top:-165px;position:relative' id='dumDiv'> <span style='font-weight: 400;font-style: italic;font-size: 13px;'>Enter your initials (Max 10 characters)<br> Choice of color can be made during<br>made to measure appointment.</span><br><br><input type='text' id='dumText'><br><br><span style='font-weight: 400;font-style: italic;font-size: 13px;'>A SGD$10.00 charge for monograms.<br><br>NOTE: Selection of colour can be made<br>during appointment for measurement.</span><br><br><input type='checkbox' id='dumCheck'><span style='font-weight: 700; font-size: 13px;''>I do not wish to include my initials</span></div>");
-              $("#option-240.clickElementHead .hidDivoption-240").css("height","250px");
-              $("#option-240.nextBtn").css({"margin-top":"80px","position":"absolute","right":"80px"});
+              //242
+              $("#"+textIdToPass).removeClass("clickElementHead").css("display","none");
+              //243
+              $("#"+checkIdToPass).removeClass("clickElementHead").css("display","none");
 
+              var imgIdToPass = "";
+              $(".imgOption").each(function(){
+                var optionId = $(this).attr('id');
+                $(this).find('#nameOption').each(function(){
+                  if($(this).text()=='MONOGRAM'){
+                    imgIdToPass = optionId;
+                  }
+                });
+              });
+
+              $("#"+imgIdToPass+".clickElementHead").children(".displ").append("<div style='color:gray;float:right;top:-165px;position:relative' id='dumDiv'> <span style='font-weight: 400;font-style: italic;font-size: 13px;'>Enter your initials (Max 10 characters)<br> Choice of color can be made during<br>made to measure appointment.</span><br><br><input type='text' id='dumText' maxLength='10' style='font-size:12pt'><br><br><span style='font-weight: 400;font-style: italic;font-size: 13px;'>A SGD$10.00 charge for monograms.<br><br>NOTE: Selection of colour can be made<br>during appointment for measurement.</span><br><br><input type='checkbox' id='dumCheck'><span style='font-weight: 700; font-size: 13px;''>I do not wish to include my initials</span></div>");
+              $("#"+imgIdToPass+".clickElementHead .hidDiv"+imgIdToPass).css("height","250px");
+              $("#"+imgIdToPass+".nextBtn").css({"margin-top":"80px","position":"absolute","right":"80px"});
+
+              //option-240 image
 
               $("#dumCheck").click(function(){
-                 $("#option-value-41").click();
+                $("#"+checkIdToPass).find(":checkbox").each(function(){$(this).click();});
+                 //$("#option-value-41").click();
               });
 
               $("#dumText").bind("keyup blur",function(){
-                $("input[name='option[242]']").val($(this).val());
+                var txtVal = $(this).val();
+                //$("#"+textIdToPass).find(":text").val(txtVal);
+                $("#"+textIdToPass).find(":text").each(function(){$(this).val(txtVal);});
+                //$("input[name='option[242]']").val($(this).val());
               });
 
 
               //tovalidate the box and the monogram
               $("#dumText").parent().parent().parent().find(":radio").each(function(){ 
                 $("#dumText").prop("disabled",true).val('');
-                $("input[name='option[242]']").val('');
+                //$("input[name='option[242]']").val('');
+                $("#"+textIdToPass).find(":text").val('');
                 
                 $(this).bind("click change",function(){
                     $("#dumText").prop("disabled",false);
                     $("#dumCheck").prop("checked",false);
-                    $("#option-value-41").prop("checked",false);
+                    //$("#option-value-41").prop("checked",false);
+                    $("#"+checkIdToPass).find(":checkbox").each(function(){$(this).prop("checked",false);});
                 });
               });
 
@@ -860,7 +899,8 @@ $(document).ready(function() {
                 });
                 
                 $("#dumText").prop("disabled",true).val('');
-                $("input[name='option[242]']").val('');
+                //$("input[name='option[242]']").val('');
+                $("#"+textIdToPass).find(":text").each(function(){$(this).val('');});
               });
 
           });

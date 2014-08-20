@@ -23,7 +23,7 @@ $_['text_forgotten']                 = 'Forgotten Password';
 $_['text_your_details']              = 'Your Personal Details';
 $_['text_your_address']              = 'Your Address';
 $_['text_your_password']             = 'Your Password';
-$_['text_agree']                     = 'I have read and agree to the <a class="colorbox" href="%s" alt="%s"><b>%s</b></a>';
+$_['text_agree']                     = '*Items sold are non-refundable, refer to our <a style="text-decoration: underline; color: #000" class="colorbox" href="%s" alt="%s">%s</a>';
 $_['text_address_new']               = 'Other Shipping Address';
 $_['text_address_existing']          = 'Use Registered Address';
 $_['text_shipping_method']           = 'Please select the preferred shipping method to use on this order.';

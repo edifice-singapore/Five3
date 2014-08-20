@@ -12,7 +12,9 @@
       </tr>
     </thead>
     <tbody>
-      <?php foreach ($products as $product) { ?>  
+      <?php  foreach ($products as $product) { ?>  
+
+
       <?php if($product['recurring']): ?>
         <tr>
             <td colspan="6"  style="border-bottom:1px solid black"><image src="catalog/view/theme/default/image/reorder.png" alt="" title="" style="float:left;" /><span style="float:left;line-height:18px; margin-left:10px;"> 
@@ -25,10 +27,19 @@
         <td style="border-bottom:1px solid black"><img src="<?php echo $product['image']; ?>"></td>
         <td class="name"  style="text-align:left;border-bottom:1px solid black" >
         <small style="padding-left: 2px; font-size:15pt;font-family:calibri"> <?php echo $product['name']; ?></small>
-          <?php foreach ($product['option'] as $option) { ?>
+          <?php foreach ($product['option'] as $option) { 
+            if($option['name'] != "WISH TO INCLUDE INITIAL?"){
+            ?>
           <br />
           &nbsp;<small style="font-size:12pt;font-family:calibri;color:gray"><?php echo $option['name']; ?> - <?php echo $option['value']; ?></small>
-          <?php } ?>
+            <?php if($option['name']=='MONOGRAM'){ ?>
+              <br />
+              &nbsp;
+              <small style="font-size:11pt;font-family:calibri;color:black; font-style:italic;font-weight:bold">Addtionional SGD$10.00 Service Fee</small>
+            <?php } ?>
+
+            
+          <?php } }?>
           <?php if($product['recurring']): ?>
           <br />
           &nbsp;<small style="font-size:12pt;font-family:calibri;color:gray"><?php echo $text_payment_profile ?>: <?php echo $product['profile_name'] ?></small>
@@ -93,8 +104,8 @@
                         <br />
                          <span style="font-style:italic;color:#636363;font-size:11pt">*Select a date and time to book an appointment to get you measured up.<br> <span style="color: #000; font-weight: 600">All made to measure is subjected to a SGD $10.00 service fee.</span></span><br />
                         <br />
-                        <input type="text" name="datePicked" class="date greytextfield" id="datePicked" placeholder="DD.MM.YY" style="height:20px"/>
-                        <img  style="margin-top:1px;margin-left:2px;position:absolute" src="http://localhost/FIV3/image/data/nImage/ico_cal.png" />
+                        <input type="text" name="datePicked" class="date greytextfield" id="datePicked" placeholder="DD.MM.YY" style="height:20px;width:200px"/>
+                        <img  style="margin-top:1px;margin-left:2px;position:absolute" src="http://fiv3.com.sg/dev1/FIV3/image/data/nImage/ico_cal.png" />
                         <div class="clear"></div><br />
                         <select name="hour" id="hour" style="width:70px; float: left; margin-right:10px;">
                               <option value="hour">HH</option>

@@ -4,7 +4,7 @@
 
 <?php if ($shipping_methods) { ?>
 <p style="color:#333;margin-left:12px"><?php //echo $text_shipping_method; ?>
-Refer to out Delivery <a alt="Terms & Conditions" href="http://localhost/FIV3/index.php?route=information/information/info&information_id=5" class="colorbox cboxElement" style="color:black;text-decoration:underline">Terms & Conditions</a> to find out more about the duration of delivery upon receiving of order and payment.        
+Refer to our Delivery <a alt="Terms & Conditions" href="http://localhost/FIV3/index.php?route=information/information/info&information_id=5" class="colorbox cboxElement" style="color:black;text-decoration:underline">Terms & Conditions</a> to find out more about the duration of delivery upon receiving of order and payment.        
 
 </p>
 <table class="radio">

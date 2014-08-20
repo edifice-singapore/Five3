@@ -66,51 +66,54 @@
     <div id="checkout"  >
       <div style="display:none;" class="checkout-heading"><?php echo $text_checkout_option; ?></div>
       <div class="checkout-content" style="height:300px"></div>
-      <div class="contBtn stackBtn commonBtn" style="display:none;margin-top:-150px;margin-left:440px;font-size:11pt">CONTINUE</div>
-      <div class="logBtn stackBtn commonBtn" style="display:none;margin-left: 878px;margin-top:-150px;font-size:11pt">LOG IN</div>
+      <div class="contBtn stackBtn commonBtn" style="display:none;margin-top:-150px;margin-left:440px;font-size:11pt;position:absolute">CONTINUE</div>
+      <div class="logBtn stackBtn commonBtn" style="display:none;margin-left: 878px;margin-top:-150px;font-size:11pt;position:absolute">LOG IN</div>
 
     </div>
     <?php if (!$logged) { ?>
     <div id="payment-address" >
       <div  style="display:none" class="checkout-heading"><span><?php echo $text_checkout_account; ?></span></div>
       <div class="checkout-content"></div>
-      <div class="backBtn checkout stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn" style="display:none">CONTINNUE</div>
+      <div class="backBtn checkout stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn" style="display:none">CONTINUE</div>
     </div>
     <?php } else { ?>
     <div id="payment-address" >
       <div  style="display:none" class="checkout-heading"><span><?php echo $text_checkout_payment_address; ?></span></div>
       <div class="checkout-content"></div>
-      <div class="backBtn loginBtn stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn" style="display:none">CONTINNUE</div>
+      <div class="backBtn loginBtn stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn" style="display:none">CONTINUE</div>
     </div>
     <?php } ?>
     <?php if ($shipping_required) { ?>
     <div id="shipping-address" >
       <div  style="display:none" class="checkout-heading"><?php echo $text_checkout_shipping_address; ?></div>
       <div class="checkout-content"></div>
-      <div class="backBtn payment-address stackBtn secondLoad" style="display:none">BACK</div><div class="nextBtn payment-address stackBtn" style="display:none">CONTINNUE</div>
+      <div class="backBtn payment-address stackBtn secondLoad" style="display:none">BACK</div><div class="nextBtn payment-address stackBtn" style="display:none">CONTINUE</div>
     </div>
     <div id="shipping-method">
       <div  style="display:none" class="checkout-heading"><?php echo $text_checkout_shipping_method; ?></div>
       <div class="checkout-content"></div>
       
-      <div class="backBtn shipping-address stackBtn thirdLoad" style="display:none">BACK</div><div class="nextBtn shipping-address stackBtn" style="display:none">CONTINNUE</div>
+      <div class="backBtn shipping-address stackBtn thirdLoad" style="display:none">BACK</div><div class="nextBtn shipping-address stackBtn" style="display:none">CONTINUE</div>
     </div>
     <?php } ?>
     <div id="payment-method" >
       <div  style="display:none" class="checkout-heading"><?php echo $text_checkout_payment_method; ?></div>
       <div class="checkout-content"></div>
        
-       <div class="backBtn shipping-method stackBtn fourthLoad" style="display:none">BACK</div><div class="nextBtn shipping-method stackBtn" style="display:none">CONTINNUE</div>
+       <div class="backBtn shipping-method stackBtn fourthLoad" style="display:none">BACK</div><div class="nextBtn shipping-method stackBtn" style="display:none">CONTINUE</div>
     </div>
     <div id="confirm">
       <div  style="display:none" class="checkout-heading"><?php echo $text_checkout_confirm; ?></div>
-      <div class="checkout-content" style="height:700px"></div>
+      <div class="checkout-content" ></div>
        <div class="backBtn payment-method stackBtn fifthLoad" style="display:none">BACK</div><div class="nextBtn payment-method stackBtn" style="display:none">CONFIRM ORDER</div>
     </div>
     <br><br>
   </div>
   <br><br>
   <?php echo $content_bottom; ?></div>
+  <div id="saveOrder" style="height:100px;background:url(http://fiv3.com.sg/dev1/FIV3/image/data/nImage/camera-loader.gif) no-repeat center center;display:none">
+  	<p style="font-family:calibri; font-size:20pt">Please wait while saving your order(s)....</p>
+  </div>
 
   <style type="text/css">
   .stackBtn{
@@ -153,6 +156,7 @@ $('#checkout .checkout-content input[name=\'account\']').live('change', function
 $(".backBtn").click(function(){
   var parClass = $(this).attr('class').split(' ');
 
+
   $("#"+parClass[1]).find('.checkout-content').slideDown('slow');
   $("#"+parClass[1]).find('.'+parClass[2]).slideDown('slow');
   $(this).parent().find('.checkout-content').slideUp('slow');
@@ -166,11 +170,13 @@ $(".backBtn").click(function(){
   	//alert('adasd');
   	$("#checkout").find('.checkout-content').css("height","300px");
   }*/
+
 });
 
 $(".nextBtn").click(function(){
 	var parClass = $(this).attr('class').split(' ');
-	if(parClass[1]=="payment-method"){
+	//if(parClass[1]!='payment-method'){
+if(parClass[1]=="payment-method"){
 	  	if($("#datePicked").val()=="" || $("#hour").val().split('hour')[1]=="" || $("#minute").val().split('min')[1]=="" || $("#ampm").val()==""){
 		    alert("Please input a valid 'MADE TO MEASURE APPOINTMENT'.");
 		    return;
@@ -182,24 +188,34 @@ $(".nextBtn").click(function(){
 	  txt = txt+" TIME : "+$("#hour").val().split('hour')[1]+" : "+$("#minute").val().split('min')[1]+" : "+$("#ampm").val()+" \n\n";
 
 	  $("#paymentTextArea").val(txt);
+	 // alert( $("#paymentTextArea").val());
+	  if($("#paymentTextArea").val()!=""){
 
-	  $.ajax({
-		url: 'index.php?route=checkout/shipping_method/validate',
-		type: 'post',
-		data: $('#shipping-method input[type=\'radio\']:checked, #paymentTextArea'),
-		dataType: 'json',
-		complete: function() {
-			$('#button-shipping-method').attr('disabled', false);
-			$('.wait').remove();
-			alert("done"+ $("#paymentTextArea").val());
-		},
-		error: function(xhr, ajaxOptions, thrownError) {
-			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
-		}
-	});	
+	  	$(".stackBtn").css("display","none");
+	 	$("#button-payment-method").click();
+	 	$("#payment-method").find('.checkout-content').hide();
+
+	 	$(".stackBtn").css("display","none");
+		$(".stackBtn").removeClass();
+
+		$("#saveOrder").css("display","block");
+
+		setTimeout(function(){
+			$(".stackBtn").css("display","none");
+			$(".stackBtn").removeClass();
+			$("#confirm").find(".button").click();
+		}, 5000);
+		
+	 }
+
+  	}else{
+
+		$(this).parent().find(".backBtn").hide();
+  		$(this).parent().find(".button").click();
   	}
 
-  $(this).parent().find(".button").click();
+	//}
+  
 });
 
 $(".contBtn").click(function(){
@@ -269,7 +285,7 @@ $(document).ready(function() {
 				
 				$("#checkout .stackBtn").css("display","none");
 				$("#payment-address .stackBtn").css("display","block");
-				$("#payment-address .backBtn").css("display","none");
+				$("#payment-address .backBtn").css("display","none"); 
 				$("#shipping-address .stackBtn").css("display","none");
 				$("#shipping-method .stackBtn").css("display","none");
 				$("#payment-method .stackBtn").css("display","none");
@@ -288,6 +304,7 @@ $(document).ready(function() {
 			},
 			error: function(xhr, ajaxOptions, thrownError) {
 				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+				//$("#payment-address").find(".backBtn").show();
 			}
 		});	
 	<?php } ?>
@@ -327,6 +344,7 @@ $('#button-account').live('click', function() {
 
 			$("#checkout .stackBtn").css("display","none");
 			$("#payment-address .stackBtn").css("display","block");
+			
 			$("#shipping-address .stackBtn").css("display","none");
 			$("#shipping-method .stackBtn").css("display","none");
 			$("#payment-method .stackBtn").css("display","none");
@@ -341,6 +359,7 @@ $('#button-account').live('click', function() {
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			//$("#button-account").find(".backBtn").show();
 		}
 	});
 });
@@ -363,6 +382,7 @@ $('#button-login').live('click', function() {
 		success: function(json) {
 			$("#checkout .stackBtn").css("display","none");
 			$("#payment-address .stackBtn").css("display","block");
+			$("#payment-address .backBtn").css("display","none");
 			$("#shipping-address .stackBtn").css("display","none");
 			$("#shipping-method .stackBtn").css("display","none");
 			$("#payment-method .stackBtn").css("display","none");
@@ -388,6 +408,7 @@ $('#button-login').live('click', function() {
 
 				$("#checkout .stackBtn").css("display","none");
 				$("#payment-address .stackBtn").css("display","none");
+				$("#payment-address .backBtn").css("display","none");
 				$("#shipping-address .stackBtn").css("display","none");
 				$("#shipping-method .stackBtn").css("display","none");
 				$("#payment-method .stackBtn").css("display","none");
@@ -403,10 +424,12 @@ $('#button-login').live('click', function() {
 				$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
 				$('.warning').fadeIn('slow');
+				//$("#button-login").find(".backBtn").show();
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			//$(this).find(".backBtn").show();
 		}
 	});	
 });
@@ -491,7 +514,8 @@ $('#button-register').live('click', function() {
 				
 				if (json['error']['confirm']) {
 					$('#payment-address input[name=\'confirm\'] + br').after('<span class="error">' + json['error']['confirm'] + '</span>');
-				}																																	
+				}						
+				$("#payment-address").find(".backBtn").show();																											
 			} else {
 				<?php if ($shipping_required) { ?>				
 				var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').attr('value');
@@ -503,6 +527,7 @@ $('#button-register').live('click', function() {
 						success: function(html) {
 							$("#checkout .stackBtn").css("display","none");
 							$("#payment-address .stackBtn").css("display","block");
+							$("#payment-address .backBtn").css("display","none");
 							$("#shipping-address .stackBtn").css("display","none");
 							$("#shipping-method .stackBtn").css("display","none");
 							$("#payment-method .stackBtn").css("display","none");
@@ -541,17 +566,18 @@ $('#button-register').live('click', function() {
 								success: function(html) {
 
 									$("#checkout .stackBtn").css("display","none");
-									$("#payment-address .stackBtn").css("display","block");
+									$("#payment-address .stackBtn").css("display","none");
+									$("#payment-address .backBtn").css("display","none");
 									$("#shipping-address .stackBtn").css("display","none");
-									$("#shipping-method .stackBtn").css("display","none");
+									$("#shipping-method .stackBtn").css("display","block");
 									$("#payment-method .stackBtn").css("display","none");
 									$("#confirm .stackBtn").css("display","none");
 
 									
-									$("#secondLoad").css("color","black").find(".checkout_step_no").css("background-color","black");
+									$("#secondLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 									$("#firstLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 									$("#thirdLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
-									$("#fourthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
+									$("#fourthLoad").css("color","black").find(".checkout_step_no").css("background-color","black");
 									$("#fifthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 									$("#sixthLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 
@@ -559,14 +585,19 @@ $('#button-register').live('click', function() {
 
 									$(".button").css("display","none").parent().parent().css({"background-color":"#fafafa","border":"none","height":"15px"});
 									$("#newsletter").hide(); $("#newsletter").next("label").hide();
+
+									$("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());
 								},
 								error: function(xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+									$("#payment-address").find(".backBtn").show();
+
 								}
 							});	
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							$("#payment-address").find(".backBtn").show();
 						}
 					});	
 				} else {
@@ -577,6 +608,7 @@ $('#button-register').live('click', function() {
 
 							$("#checkout .stackBtn").css("display","none");
 							$("#payment-address .stackBtn").css("display","block");
+							$("#payment-address .backBtn").css("display","none");
 							$("#shipping-address .stackBtn").css("display","none");
 							$("#shipping-method .stackBtn").css("display","none");
 							$("#payment-method .stackBtn").css("display","none");
@@ -611,6 +643,7 @@ $('#button-register').live('click', function() {
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							$("#payment-address").find(".backBtn").show();
 						}
 					});			
 				}
@@ -622,6 +655,7 @@ $('#button-register').live('click', function() {
 
 						$("#checkout .stackBtn").css("display","none");
 						$("#payment-address .stackBtn").css("display","block");
+						$("#payment-address .backBtn").css("display","none");
 						$("#shipping-address .stackBtn").css("display","none");
 						$("#shipping-method .stackBtn").css("display","none");
 						$("#payment-method .stackBtn").css("display","none");
@@ -654,6 +688,8 @@ $('#button-register').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						//$(this).find(".backBtn").show();
+						$("#payment-address").find(".backBtn").show();
 					}
 				});					
 				<?php } ?>
@@ -665,6 +701,7 @@ $('#button-register').live('click', function() {
 
 						$("#checkout .stackBtn").css("display","none");
 						$("#payment-address .stackBtn").css("display","block");
+						$("#payment-address .backBtn").css("display","none");
 						$("#shipping-address .stackBtn").css("display","none");
 						$("#shipping-method .stackBtn").css("display","none");
 						$("#payment-method .stackBtn").css("display","none");
@@ -687,12 +724,16 @@ $('#button-register').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						//$(this).find(".backBtn").show();
+						$("#payment-address").find(".backBtn").show();
 					}
 				});
 			}	 
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			//$(this).find(".backBtn").show();
+			$("#payment-address").find(".backBtn").show();
 		}
 	});	
 });
@@ -724,6 +765,10 @@ $('#button-payment-address').live('click', function() {
 			if (json['redirect']) {
 				location = json['redirect'];
 			} else if (json['error']) {
+				<?php if (!$logged) { ?> 
+				$("#payment-address").find(".backBtn").show();
+				<?php } ?>
+
 				if (json['error']['warning']) {
 					$('#payment-address .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 					
@@ -769,6 +814,7 @@ $('#button-payment-address').live('click', function() {
 				if (json['error']['zone']) {
 					$('#payment-address select[name=\'zone_id\']').after('<span class="error">' + json['error']['zone'] + '</span>');
 				}
+
 			} else {
 				<?php if ($shipping_required) { ?>
 				$.ajax({
@@ -808,6 +854,9 @@ $('#button-payment-address').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						<?php if (!$logged) { ?> 
+						$("#payment-address").find(".backBtn").show();
+						<?php } ?>
 					}
 				});
 				<?php } else { ?>
@@ -845,6 +894,9 @@ $('#button-payment-address').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						<?php if (!$logged) { ?> 
+						$("#payment-address").find(".backBtn").show();
+						<?php } ?>
 					}
 				});	
 				<?php } ?>
@@ -874,12 +926,18 @@ $('#button-payment-address').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						<?php if (!$logged) { ?> 
+						$("#payment-address").find(".backBtn").show();
+						<?php } ?>
 					}
 				});				
 			}	  
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			<?php if (!$logged) { ?> 
+				$("#payment-address").find(".backBtn").show();
+				<?php } ?>
 		}
 	});	
 });
@@ -900,7 +958,7 @@ $('#button-shipping-address').live('click', function() {
 			$('.wait').remove();
 		},			
 		success: function(json) {
-			 $("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());
+			
 			/*$("#firstLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 			$("#secondLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
 			$("#thirdLoad").css("color","#666666").find(".checkout_step_no").css("background-color","#acacac");
@@ -912,6 +970,8 @@ $('#button-shipping-address').live('click', function() {
 			if (json['redirect']) {
 				location = json['redirect'];
 			} else if (json['error']) {
+				$("#shipping-address").find(".backBtn").show();
+
 				if (json['error']['warning']) {
 					$('#shipping-address .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 					
@@ -953,11 +1013,14 @@ $('#button-shipping-address').live('click', function() {
 				if (json['error']['zone']) {
 					$('#shipping-address select[name=\'zone_id\']').after('<span class="error">' + json['error']['zone'] + '</span>');
 				}
+				//$(this).find(".backBtn").show();
 			} else {
 				$.ajax({
 					url: 'index.php?route=checkout/shipping_method',
 					dataType: 'html',
 					success: function(html) {
+
+
 						$("#checkout .stackBtn").css("display","none");
 						$("#payment-address .stackBtn").css("display","none");
 						$("#shipping-address .stackBtn").css("display","none");
@@ -1014,11 +1077,13 @@ $('#button-shipping-address').live('click', function() {
 							},
 							error: function(xhr, ajaxOptions, thrownError) {
 								alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+								$("#shipping-address").find(".backBtn").show();
 							}
 						});
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						$("#shipping-address").find(".backBtn").show();
 					}
 				});	
 				
@@ -1049,12 +1114,14 @@ $('#button-shipping-address').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						$("#shipping-address").find(".backBtn").show();
 					}
 				});					
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			$("#shipping-address").find(".backBtn").show();
 		}
 	});	
 });
@@ -1136,6 +1203,7 @@ $('#button-guest').live('click', function() {
 				if (json['error']['zone']) {
 					$('#payment-address select[name=\'zone_id\'] + br').after('<span class="error">' + json['error']['zone'] + '</span>');
 				}
+				$('#payment-address').find(".backBtn").show();
 			} else {
 				<?php if ($shipping_required) { ?>	
 				var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').attr('value');
@@ -1202,11 +1270,13 @@ $('#button-guest').live('click', function() {
 								},
 								error: function(xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+									$('#payment-address').find(".backBtn").show();
 								}
 							});
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							$('#payment-address').find(".backBtn").show();
 						}
 					});					
 				} else {
@@ -1246,6 +1316,7 @@ $('#button-guest').live('click', function() {
 						},
 						error: function(xhr, ajaxOptions, thrownError) {
 							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+							$('#payment-address').find(".backBtn").show();
 						}
 					});
 				}
@@ -1286,6 +1357,7 @@ $('#button-guest').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						$('#payment-address').find(".backBtn").show();
 					}
 				});				
 				<?php } ?>
@@ -1293,6 +1365,7 @@ $('#button-guest').live('click', function() {
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			$('#payment-address').find(".backBtn").show();
 		}
 	});	
 });
@@ -1351,6 +1424,7 @@ $('#button-guest-shipping').live('click', function() {
 				if (json['error']['zone']) {
 					$('#shipping-address select[name=\'zone_id\']').after('<span class="error">' + json['error']['zone'] + '</span>');
 				}
+				//$(this).find(".backBtn").show();
 			} else {
 				$.ajax({
 					url: 'index.php?route=checkout/shipping_method',
@@ -1370,12 +1444,14 @@ $('#button-guest-shipping').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						//$(this).find(".backBtn").show();
 					}
 				});				
 			}	 
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			//$(this).find(".backBtn").show();
 		}
 	});	
 });
@@ -1410,6 +1486,7 @@ $('#button-shipping-method').live('click', function() {
 					$('#shipping-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 					
 					$('.warning').fadeIn('slow');
+					$("#shipping-method").find(".backBtn").show();
 				}			
 			} else {
 				$.ajax({
@@ -1448,12 +1525,14 @@ $('#button-shipping-method').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						$("#shipping-method").find(".backBtn").show();
 					}
 				});					
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			$("#shipping-method").find(".backBtn").show();
 		}
 	});	
 });
@@ -1490,6 +1569,7 @@ $('#button-payment-method').live('click', function() {
 					$('#payment-method .checkout-content').prepend('<div class="warning" style="display: none;">' + json['error']['warning'] + '<img src="catalog/view/theme/default/image/close.png" alt="" class="close" /></div>');
 					
 					$('.warning').fadeIn('slow');
+					$("#payment-method").find(".backBtn").show();
 				}			
 			} else {
 				$.ajax({
@@ -1533,12 +1613,14 @@ $('#button-payment-method').live('click', function() {
 					},
 					error: function(xhr, ajaxOptions, thrownError) {
 						alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						$("#payment-method").find(".backBtn").show();
 					}
 				});	
 			}
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			$("#payment-method").find(".backBtn").show();
 		}
 	});	
 });
@@ -1548,6 +1630,10 @@ function quickConfirm(module){
 		url: 'index.php?route=checkout/confirm',
 		dataType: 'html',
 		success: function(html) {
+
+			
+
+
 			$('#confirm .checkout-content').html(html);
 			$('#confirm .checkout-content').slideDown('slow');
 			
@@ -1567,11 +1653,14 @@ function quickConfirm(module){
 			$('#payment-address .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
 							
 			$('#payment-method .checkout-heading a').remove();
-			$('#payment-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');	
+			$('#payment-method .checkout-heading').append('<a><?php echo $text_modify; ?></a>');
+
+			
 
 		},
 		error: function(xhr, ajaxOptions, thrownError) {
 			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			$(this).find(".backBtn").show();
 		}
 	});	
 }

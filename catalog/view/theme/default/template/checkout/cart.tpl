@@ -135,6 +135,8 @@ $n = explode("/",$banner['image']);
                     <?php if($option['name']=="MONOGRAM"){ ?>
                         <small style="font-size:11pt;font-family:calibri;color:black; font-style:italic;font-weight:bold">Addtionional SGD$10.00 Service Fee</small><br />
                     <?php } ?>
+
+                    
                 <?php } 
                 } ?>
                 <?php if($product['recurring']): ?>
@@ -147,8 +149,18 @@ $n = explode("/",$banner['image']);
             <td class="price cclass money"  style="text-align:left;left:20px;font-family:calibri;padding-top:30px;padding-bottom:30px;"><?php echo $product['price']; ?></td>
            
             <td style="padding-top:30px;padding-bottom:30px;" class="quantity">
-              <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" />
-              &nbsp;
+              <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" style="height:19px;width:50px;border:none;background-color: #ebebeb"/> 
+              <div class="mainDivImgButton" style="width:18px;height:23px;border:1px solid #ebebeb; display:inline;position:absolute;margin-left:-4px;margin-top:3px">
+                <div id="arrowUpQty" style="width:20px;height:10px;display: inline;position:absolute;"></div>
+                <div id="arrowDownQty" style="width:20px;height:10px;display: inline;position:absolute;margin-top:12px"></div>
+            </div>
+            <style type="text/css">
+              .mainDivImgButton{
+                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
+                cursor: pointer;
+              }
+            </style>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <input type="image" src="catalog/view/theme/default/image/ico_ref.jpg" alt="<?php echo $button_update; ?>" title="<?php echo $button_update; ?>" />
             </td>
             
@@ -492,3 +504,26 @@ $('select[name=\'country_id\']').trigger('change');
 //--></script>
 <?php } ?>
 <?php echo $footer; ?>
+
+
+<script type="text/javascript">
+  $(function(){
+      
+      $("#arrowUpQty").click(function(){
+        $(this).parent().parent().find(':text').each(function(){
+          var Total = parseInt($(this).val()) + 1;
+          $(this).val(Total);
+        });          
+      });
+
+      $("#arrowDownQty").click(function(){
+        $(this).parent().parent().find(':text').each(function(){
+          var Total = parseInt($(this).val()) - 1;
+          if(Total>0){
+            $(this).val(Total);
+          }
+        });
+      });
+
+  });
+</script>

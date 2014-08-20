@@ -32,18 +32,19 @@
 </table>
 <br />
 <?php } ?>
-<b ><?php echo $text_comments; ?></b>
-<textarea name="comment" rows="8" style="width: 98%;" id="paymentTextArea"><?php echo $comment; ?></textarea>
+<b style="display:none"><?php echo $text_comments; ?></b>
+<textarea name="comment" rows="8" style="width: 98%;display:none" id="paymentTextArea"><?php echo $comment; ?></textarea>
 <br />
 <br />
 <?php if ($text_agree) { ?>
 <div class="buttons">
-  <div class="right"><?php echo $text_agree; ?>
+  <div class="right" style="color:#666666">
+  
     <?php if ($agree) { ?>
     <input type="checkbox" name="agree" value="1" checked="checked" />
     <?php } else { ?>
     <input type="checkbox" name="agree" value="1" />
-    <?php } ?>
+    <?php } ?> <?php echo $text_agree; ?>
     <input type="button" value="<?php echo $button_continue; ?>" id="button-payment-method" class="button" />
   </div>
 </div>

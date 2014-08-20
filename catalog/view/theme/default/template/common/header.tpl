@@ -263,7 +263,6 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
         } ?>
 
       </div>
-      <br><br>
   </div>
   <div style="display:<?php echo (isset($_GET['product_id']))? "block": "none";?>">
     <a href="<?php echo $hrefforback;?>" style="color:black" class="backChecks">BACK TO CHECKS</a>
