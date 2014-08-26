@@ -151,12 +151,12 @@ $n = explode("/",$banner['image']);
             <td style="padding-top:30px;padding-bottom:30px;" class="quantity">
               <input type="text" name="quantity[<?php echo $product['key']; ?>]" value="<?php echo $product['quantity']; ?>" size="1" style="height:19px;width:50px;border:none;background-color: #ebebeb"/> 
               <div class="mainDivImgButton" style="width:18px;height:23px;border:1px solid #ebebeb; display:inline;position:absolute;margin-left:-4px;margin-top:3px">
-                <div id="arrowUpQty" style="width:20px;height:10px;display: inline;position:absolute;"></div>
-                <div id="arrowDownQty" style="width:20px;height:10px;display: inline;position:absolute;margin-top:12px"></div>
+                <div id="arrowUpQty" class="arrowUpQty" style="width:20px;height:10px;display: inline;position:absolute;"></div>
+                <div id="arrowDownQty" class="arrowDownQty" style="width:20px;height:10px;display: inline;position:absolute;margin-top:12px"></div>
             </div>
             <style type="text/css">
               .mainDivImgButton{
-                background: url('http://fiv3.com.sg/dev1/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
+                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
                 cursor: pointer;
               }
             </style>
@@ -298,10 +298,10 @@ $n = explode("/",$banner['image']);
     </td>
     <td>
          <div class="cart-total" style="border:none">
-    <table id="total" width="300px">
+    <table id="total" width="550px">
       <?php foreach ($totals as $total) { ?>
       <tr>
-        <td class="labelTotal" style="text-align:left;  " width="150px"><b><?php echo ($total['title']=="Total")?"Grand Total":$total['title']; ?></b></td>
+        <td class="labelTotal" style="text-align:left;  " width="450px"><b><?php echo ($total['title']=="Total")?"Grand Total":$total['title']; ?></b></td>
         <td class="textTotal" style="text-align:left" width="150px"><?php echo $total['text']; ?></td>
       </tr>
       <?php } ?>
@@ -509,14 +509,14 @@ $('select[name=\'country_id\']').trigger('change');
 <script type="text/javascript">
   $(function(){
       
-      $("#arrowUpQty").click(function(){
+      $(".arrowUpQty").click(function(){
         $(this).parent().parent().find(':text').each(function(){
           var Total = parseInt($(this).val()) + 1;
           $(this).val(Total);
         });          
       });
 
-      $("#arrowDownQty").click(function(){
+      $(".arrowDownQty").click(function(){
         $(this).parent().parent().find(':text').each(function(){
           var Total = parseInt($(this).val()) - 1;
           if(Total>0){

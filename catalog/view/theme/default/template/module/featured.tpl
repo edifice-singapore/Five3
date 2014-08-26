@@ -1,32 +1,13 @@
 <div class="box">
   <?php //echo $heading_title; ?>
-<table align="center" class="tabTitle" width="90%">
-    <tr>
-      <td width="30%" height="27px" style="border-bottom:1px solid black"></td>
-      <td rowspan="2" style="text-align:center;padding-left:15px; padding-right:15px; margin-top:5px"><br>
-        <b style="color:black;font-size:15pt;font-family:calibri"; >
-        <?php echo  $heading_title; ?></b>
-      </td>
-      <td width="30%"  style="border-bottom:1px solid black"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    </table>
 
-    <style>
-        .tabTitle{
-          border-collapse:collapse;
-         
-        }
-        .tabTitle tr td{
-          
-
-        }
-    </style>
-
-
+  <table cellpadding="0" cellspacing="0" class="headingtitle" style="margin: 20px auto 10px;width: 930px; min-width: 930px">
+          <tr>
+              <td><hr /></td>
+              <td width="200px"><h1><?php echo  $heading_title; ?></h1></td>
+              <td><hr /></td>
+            </tr>
+        </table>
 
   <div class="box-content" style="border:none;background-color:#fafafa">
     <div   align="center" class="box-product">

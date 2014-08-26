@@ -203,7 +203,14 @@ if(parClass[1]=="payment-method"){
 		setTimeout(function(){
 			$(".stackBtn").css("display","none");
 			$(".stackBtn").removeClass();
-			$("#confirm").find(".button").click();
+			
+			if($("#confirm").find(".button").attr('id')=='button-confirm'){
+				$("#confirm").find(".button").click();
+			}else{
+				var link = $("#confirm").find(".button").attr("href");
+				window.location.href = link;
+			}
+			
 		}, 5000);
 		
 	 }

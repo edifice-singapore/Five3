@@ -204,7 +204,3 @@ if (view) {
 }
 //--></script> 
 <?php echo $footer; ?>
-
-
-<!--b><?php //echo $text_display; ?></b> <a onclick="display(\'list\');"><?php //echo $text_list; ?></a> <b>/</b--> <?php// echo $text_grid; ?>
-

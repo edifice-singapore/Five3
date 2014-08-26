@@ -5,30 +5,16 @@
     <?php //echo $breadcrumb['separator']; ?><a href="<?php //echo $breadcrumb['href']; ?>"><?php //echo $breadcrumb['text']; ?></a>
     <?php //} ?>
   </div>
-  <table align="center" class="tabTitle" width="80%">
-    <tr>
-      <td width="37%" height="27px" style="border-bottom:1px solid black"></td>
-      <td rowspan="2" style="padding-left:15px; padding-right:15px; margin-top:5px"><br>
-        <h1 style="color:black;font-size:18pt;text-align:center;font-family:calibri"; ><?php echo strtoupper(($heading_title=="ABOUT")? "About Us":$heading_title); ?></h1>
-      </td>
-      <td width="37%"  style="border-bottom:1px solid black"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    </table>
 
-    <style>
-        .tabTitle{
-          border-collapse:collapse;
-         
-        }
-        .tabTitle tr td{
-          
+  <table cellpadding="0" cellspacing="0" class="headingtitle" style="margin: 20px auto 10px;width: 930px; min-width: 930px">
+          <tr>
+              <td><hr /></td>
+              <td width="200px"><h1><?php echo strtoupper(($heading_title=="ABOUT")? "About Us":$heading_title); ?></h1></td>
+              <td><hr /></td>
+            </tr>
+        </table>
 
-        }
-    </style>
+
   <?php echo $description; ?>
   <!--div class="buttons">
     <div class="right"><a href="<?php //echo $continue; ?>" class="button"><?php //echo $button_continue; ?></a></div>

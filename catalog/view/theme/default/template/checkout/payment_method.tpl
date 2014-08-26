@@ -5,7 +5,7 @@
 
 <table class="radio">
 <tr class="highlight">
-  <?php var_dump($payment_methods); foreach ($payment_methods as $index => $payment_method) {
+  <?php foreach ($payment_methods as $index => $payment_method) {
     if($index =='pp_express'){
     ?>
   

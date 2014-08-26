@@ -26,6 +26,9 @@
 <script type="text/javascript" src="catalog/view/javascript/common.js"></script>
 <?php foreach ($scripts as $script) { ?>
 <script type="text/javascript" src="<?php echo $script; ?>"></script>
+
+
+
 <?php } ?>
 <!--[if IE 7]> 
 <link rel="stylesheet" type="text/css" href="catalog/view/theme/default/stylesheet/ie7.css" />
@@ -96,7 +99,7 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
   </style>
 
   <div class="links upperLinks" align="center">
-    <a class="subUpLinks"  style="border:none;color:gray; font-size:13pt;margin-left:10%" href="http://fiv3.com.sg/dev1/FIV3/index.php?route=information/information&information_id=4">ABOUT&nbsp; </a>
+    <a class="subUpLinks"  style="border:none;color:gray; font-size:13pt;margin-left:1.3%" href="http://localhost/FIV3/index.php?route=information/information&information_id=4">ABOUT&nbsp; </a>
 
     
   <a class="subUpLinks clsShop"  id="idShop" style="border: medium none; color: gray; font-size: 13pt; margin-left: 77px;width:70px">SHOP&nbsp</a>
@@ -109,9 +112,11 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
     <a class="subUpLinks" style="border:none;color:gray; font-size:13pt;margin-left:7%"  href="<?php echo $shopping_cart; ?>"><?php echo strtoupper($text_shopping_cart); ?>&nbsp;</a>
 
     <a class="subUpLinks" style="border:none;color:gray; font-size:13pt;margin-left:7%"  href="<?php echo $checkout; ?>"><?php echo strtoupper($text_checkout); ?>&nbsp;</a>
+
+    <a class="subUpLinks" style="border:none;color:gray; font-size:13pt;margin-left:4%"  href="http://localhost/FIV3/index.php?route=information/howitworks">HOW IT WORKS&nbsp;</a>
   </div>
 
-   <div id="hoverListCategory" style="float:left;width:150px;top:140px;position:absolute;left:23%;border-top:1px solid black">
+   <div id="hoverListCategory" style="float:left;width:150px;top:140px;position:absolute;left:14.5%;border-top:1px solid black">
     <?php foreach ($categories as $category) { ?>
     <div class="msHover" style="padding-left:15px;padding-right:60%;padding-top: 5px ; padding-bottom:5px;">
       <?php if(count($category['children'])==0) { ?>
@@ -223,30 +228,17 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
         ?>
        
 <div style="display:<?php echo (isset($_GET['product_id']))? "none": "block";?>">
-         <table align="center" class="tabTitle" width="80%">
-    <tr>
-      <td width="37%" height="35px" style="border-bottom:1px solid black"></td>
-      <td rowspan="2" style="padding-left:15px; padding-right:15px; margin-top:5px"><br>
-        <h1 style="color:black;font-size:25pt;text-align:center;font-family:calibri"; ><?php echo $cat['name']; ?></h1>
-      </td>
-      <td width="37%"  style="border-bottom:1px solid black"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td></td>
-    </tr>
-    </table>
 
-    <style>
-        .tabTitle{
-          border-collapse:collapse;
-         
-        }
-        .tabTitle tr td{
-          
+<table cellpadding="0" cellspacing="0" class="headingtitle" style="margin: 20px auto 10px;width: 930px; min-width: 930px">
+          <tr>
+              <td><hr /></td>
+              <td width="200px"><h1><?php echo $cat['name']; ?></h1></td>
+              <td><hr /></td>
+            </tr>
+        </table>
 
-        }
-    </style>
+
+        
       <div align="center">
       <?php
           foreach($cat['children'] as $catChildren){
@@ -295,3 +287,40 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
     
 <?php } ?>
 <div id="notification"></div>
+
+
+<?php //ralph comment ?>
+<link href='http://fonts.googleapis.com/css?family=Josefin+Sans:100,300,400,600,700,100italic,300italic,400italic,600italic,700italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto:100,100italic,300,300italic,400,400italic,500,500italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,300,400,700' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,300,400,600,700,800' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Cardo:400,400italic,700' rel='stylesheet' type='text/css'>
+
+<link rel='stylesheet' type='text/css' href='../FIV3/css/style.css'>
+<?php //end ralph comment ?>
+
+
+<div class="header">
+        <ul class="main_navi">
+            <li><a href="about.html">About</a></li>
+            <li><a href="">Shop</a>
+            <ul>
+            <?php foreach ($categories as $category) { ?>
+            <li>
+              <?php if(count($category['children'])==0) { ?>
+                <a href="<?php echo $category['href']; ?>" style="text-decoration:none;color:#333;"><?php echo $category['name']; ?></a>
+              <?php }else{ ?>
+                <a href="<?php echo $category['children'][0]['href']; ?>" style="text-decoration:none;color:#333;"><?php echo $category['name']; ?></a>
+              <?php } ?>
+            </li>
+            <?php } ?>  
+            </ul>
+
+            </li>
+            <li><a href="explorecustom.html">Explore Customs</a></li>
+            <li><a href="beinspired.html">Be Inspired<span style="font-size:16px;line-height: 0;">!</span></a></li>
+            <li><a href="collaboration.html">Collaboration</a></li>
+            <li><a href="whycustom.html">Why Custom</a></li>
+            <li class="active"><a href="howitworks.html">How it works</a></li>             
+        </ul><!-- End .main_navi -->
+    </div><!-- End .header -->

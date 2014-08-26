@@ -1274,13 +1274,15 @@ class ControllerPaymentPPExpress extends Controller {
 		$max_amount = min($max_amount * 1.25, 10000);
 		$max_amount = $this->currency->format($max_amount, $this->currency->getCode(), '', false);
 
+		
+
 		$data = array(
 			'METHOD' => 'SetExpressCheckout',
 			'MAXAMT' => $max_amount,
 			'RETURNURL' => $this->url->link('payment/pp_express/checkoutReturn', '', 'SSL'),
 			'CANCELURL' => $this->url->link('checkout/checkout', '', 'SSL'),
 			'REQCONFIRMSHIPPING' => 0,
-			'NOSHIPPING' => 1,
+			'NOSHIPPING' => 1, // ralph;
 			'LOCALECODE' => 'EN',
 			'LANDINGPAGE' => 'Login',
 			'HDRIMG' => $this->model_tool_image->resize($this->config->get('pp_express_logo'), 790, 90),
