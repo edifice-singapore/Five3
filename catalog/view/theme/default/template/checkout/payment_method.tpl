@@ -5,8 +5,8 @@
 
 <table class="radio">
 <tr class="highlight">
-  <?php foreach ($payment_methods as $index => $payment_method) { 
-    if($index =='pp_standard'){
+  <?php var_dump($payment_methods); foreach ($payment_methods as $index => $payment_method) {
+    if($index =='pp_express'){
     ?>
   
     <td><?php if ($payment_method['code'] == $code || !$code) { ?>
@@ -15,7 +15,7 @@
       <?php } else { ?>
       <input type="radio" name="payment_method" value="<?php echo $payment_method['code']; ?>" id="<?php echo $payment_method['code']; ?>" />
       <?php } ?></td>
-    <td  width="200px"><img src="http://localhost/FIV3/image/data/nImage/ico_paypal.jpg"></td>
+    <td  width="200px"><img src="http://fiv3.com.sg/dev1/FIV3/image/data/nImage/ico_paypal.jpg"></td>
   <?php }else{?>
 
     <td width="25px"><?php if ($payment_method['code'] == $code || !$code) { ?>
@@ -57,7 +57,7 @@
 <?php } ?>
 <script type="text/javascript"><!--
 $('.colorbox').colorbox({
-	width: 640,
-	height: 480
+  width: 640,
+  height: 480
 });
 //--></script> 

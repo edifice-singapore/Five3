@@ -3,16 +3,17 @@
     <?php foreach ($banners as $banner) { 
 
       // to maximize the image in the slideshow by rteves
-
+      //echo($banner['image']);
        $n = explode("/",$banner['image']);
-      unset($n[5]);
+      unset($n[6]);
 
-      $titleExpld = explode('-',$n[8]);
+      $titleExpld = explode('-',$n[9]);
       $title1st = $titleExpld[0];
       $title2nd = explode(".",$titleExpld[1]);
 
       $newImg = $title1st.".". $title2nd[1];
-      $n[8] = $newImg;
+
+      $n[9] = $newImg;
 
       $newLink = implode('/',$n);
 

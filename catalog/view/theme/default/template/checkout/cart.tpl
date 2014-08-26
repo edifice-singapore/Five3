@@ -156,7 +156,7 @@ $n = explode("/",$banner['image']);
             </div>
             <style type="text/css">
               .mainDivImgButton{
-                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
+                background: url('http://fiv3.com.sg/dev1/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
                 cursor: pointer;
               }
             </style>

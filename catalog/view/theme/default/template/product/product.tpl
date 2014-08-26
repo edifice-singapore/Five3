@@ -129,7 +129,7 @@
             
             <style type="text/css">
               .mainDivImgButton{
-                background: url('http://localhost/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
+                background: url('http://fiv3.com.sg/dev1/FIV3/image/data/nImage/jquery.fs.stepper-arrows.png') no-repeat #ebebeb;
                 cursor: pointer;
               }
             </style>
@@ -324,7 +324,7 @@
               }
               
               .type_selection .content{
-                background: url('http://localhost/FIV3/image/data/nImage/x_greybg.png') repeat;
+                background: url('http://fiv3.com.sg/dev1/FIV3/image/data/nImage/x_greybg.png') repeat;
                 position: absolute;
                 top:128px;
                 font-size: 11px;
@@ -344,7 +344,7 @@
               .type_selection .content > div{
                 position: absolute; 
                 bottom: 22px; 
-                background: url('http://localhost/FIV3/image/data/nImage/ico_tick.png') no-repeat #333 right 4px center; 
+                background: url('http://fiv3.com.sg/dev1/FIV3/image/data/nImage/ico_tick.png') no-repeat #333 right 4px center; 
                 width: 100px;
                 padding: 5px 25px 5px 5px;
                 left: -1px;

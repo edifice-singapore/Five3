@@ -74,7 +74,7 @@
     <div id="payment-address" >
       <div  style="display:none" class="checkout-heading"><span><?php echo $text_checkout_account; ?></span></div>
       <div class="checkout-content"></div>
-      <div class="backBtn checkout stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn" style="display:none">CONTINUE</div>
+      <div class="backBtn checkout stackBtn firstLoad" style="display:none">BACK</div><div class="nextBtn checkout stackBtn registerBtn" style="display:none">CONTINUE</div>
     </div>
     <?php } else { ?>
     <div id="payment-address" >
@@ -519,6 +519,7 @@ $('#button-register').live('click', function() {
 			} else {
 				<?php if ($shipping_required) { ?>				
 				var shipping_address = $('#payment-address input[name=\'shipping_address\']:checked').attr('value');
+				location.reload();
 				
 				if (shipping_address) {
 					$.ajax({
@@ -587,6 +588,9 @@ $('#button-register').live('click', function() {
 									$("#newsletter").hide(); $("#newsletter").next("label").hide();
 
 									$("#setInAddress").html($("#shipping-existing select[name='address_id']").find("option:selected").text());
+
+									//alert('hi');
+
 								},
 								error: function(xhr, ajaxOptions, thrownError) {
 									alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);

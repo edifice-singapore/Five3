@@ -392,7 +392,7 @@ class ControllerCheckoutConfirm extends Controller {
 
 				//http://localhost/FIV3/image/cache/data/nImage/shirt1-150x120.jpg
 				$expl = explode(".",$product['image']);
-				$images= 'http://localhost/FIV3/image/cache/'.$expl[0]."-150x120.".$expl[1];
+				$images= 'http://fiv3.com.sg/dev1/FIV3/image/cache/'.$expl[0]."-150x120.".$expl[1];
 
 				$this->data['products'][] = array(
 					'key'                 => $product['key'],

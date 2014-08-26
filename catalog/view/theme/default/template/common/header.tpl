@@ -96,7 +96,7 @@ $('body').prepend('<iframe src="<?php echo $store; ?>" style="display: none;"></
   </style>
 
   <div class="links upperLinks" align="center">
-    <a class="subUpLinks"  style="border:none;color:gray; font-size:13pt;margin-left:10%" href="http://localhost/FIV3/index.php?route=information/information&information_id=4">ABOUT&nbsp; </a>
+    <a class="subUpLinks"  style="border:none;color:gray; font-size:13pt;margin-left:10%" href="http://fiv3.com.sg/dev1/FIV3/index.php?route=information/information&information_id=4">ABOUT&nbsp; </a>
 
     
   <a class="subUpLinks clsShop"  id="idShop" style="border: medium none; color: gray; font-size: 13pt; margin-left: 77px;width:70px">SHOP&nbsp</a>

@@ -104,7 +104,7 @@
                         <br />
                          <span style="font-style:italic;color:#636363;font-size:11pt">*Select a date and time to book an appointment to get you measured up.<br> <span style="color: #000; font-weight: 600">All made to measure is subjected to a SGD $10.00 service fee.</span></span><br />
                         <br />
-                        <input type="text" name="datePicked" class="date greytextfield" id="datePicked" placeholder="DD.MM.YY" style="height:20px;width:200px"/>
+                        <input type="text" name="datePicked" class="date greytextfield" id="datePicked" placeholder="DD.MM.YY" style="height:20px;width:200px" readonly="readonly" />
                         <img  style="margin-top:1px;margin-left:2px;position:absolute" src="http://fiv3.com.sg/dev1/FIV3/image/data/nImage/ico_cal.png" />
                         <div class="clear"></div><br />
                         <select name="hour" id="hour" style="width:70px; float: left; margin-right:10px;">

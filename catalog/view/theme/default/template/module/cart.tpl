@@ -2,7 +2,7 @@
       <?php
         $qty = explode(' ',$text_items);
       ?>
-      <p style="margin-top:-13.5px;color:#606060;float:right;">| <?php echo $heading_title; ?> (<?php echo $qty[0]; ?>) <img src="http://localhost/FIV3/image/data/nImage/ico_bag.png"/></p>
+      <p style="margin-top:-13.5px;color:#606060;float:right;">| <?php echo $heading_title; ?> (<?php echo $qty[0]; ?>) <img src="http://fiv3.com.sg/dev1/FIV3/image/data/nImage/ico_bag.png"/></p>
 <div id="cart" style="right:-190px;top:8pt">
   
 
